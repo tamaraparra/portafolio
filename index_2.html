@@ -1,0 +1,850 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Portafolio de Tamara Parra, analista de datos: proyectos, herramientas, formación y contacto.">
+<title>Tamara Parra, Portafolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: dark "control room" page. Hero = name + a real query card; then project panels, tools, studies, contact. */
+:root {
+  --bg: #f3f6fc; --bg-2: #e4ebf8; --panel: #ffffff; --panel-line: #d3dcee;
+  --fg: #0c1a38; --muted: #4c5c7d; --accent: #0369a1; --accent-2: #6d4fd8; --warm: #b45309;
+  --grid: rgba(12,26,56,.05);
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+    radial-gradient(900px 500px at 85% -10%, color-mix(in srgb, var(--accent-2) 22%, transparent), transparent 70%),
+    radial-gradient(800px 500px at 10% 0%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 70%);
+  background-size: 44px 44px, 44px 44px, auto, auto;
+}
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--warm); outline-offset: 3px; border-radius: 6px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.1; }
+.label {
+  font-family: var(--font-mono); font-size: .75rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted);
+}
+
+/* Top bar */
+.top { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-block: 22px; }
+.top .brand { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; }
+.top nav { display: flex; gap: 20px; flex-wrap: wrap; }
+.top nav a { color: var(--muted); text-decoration: none; font-size: .95rem; }
+.top nav a:hover { color: var(--fg); }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; padding-block: 48px 72px; }
+.hero > * { min-width: 0; }
+.hero h1 { font-size: clamp(3rem, 8vw, 5.6rem); font-weight: 800; letter-spacing: -.035em; }
+.role { display: flex; align-items: center; gap: 14px; margin-top: 18px; font-family: var(--font-display); font-weight: 500; font-size: clamp(1.3rem, 2.6vw, 1.7rem); color: var(--accent); }
+.role::before { content: ""; width: 44px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+.intro { color: var(--muted); max-width: 52ch; margin: 22px 0 0; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 10px; padding: 11px 18px; border-radius: 999px;
+  font: 600 .98rem var(--font-body); text-decoration: none; cursor: pointer;
+  border: 1px solid var(--panel-line); background: var(--panel); color: var(--fg);
+}
+.btn.primary { background: var(--accent); border-color: transparent; color: var(--bg); }
+.btn:hover { filter: brightness(1.08); }
+.btn svg { width: 18px; height: 18px; flex: none; }
+
+/* Query card */
+.query {
+  border: 1px solid var(--panel-line); background: var(--panel); border-radius: 16px; overflow: hidden;
+  box-shadow: 0 30px 60px -30px rgba(0,0,0,.55);
+}
+.query-head { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--panel-line); }
+.query-head i { width: 10px; height: 10px; border-radius: 50%; background: var(--panel-line); display: block; }
+.query-head span { margin-left: auto; font-family: var(--font-mono); font-size: .75rem; color: var(--muted); }
+.query pre { margin: 0; padding: 18px; font-family: var(--font-mono); font-size: .86rem; line-height: 1.7; overflow-x: auto; color: var(--fg); }
+.kw { color: var(--accent-2); }
+.str { color: var(--warm); }
+.query table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: .8rem; }
+.query th, .query td { text-align: left; padding: 8px 18px; border-top: 1px solid var(--panel-line); }
+.query th { color: var(--muted); font-weight: 500; }
+.query td:last-child, .query th:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+.query .foot { padding: 10px 18px; font-family: var(--font-mono); font-size: .72rem; color: var(--muted); border-top: 1px solid var(--panel-line); }
+
+/* Sections */
+section { padding-block: 64px; }
+.sec-head { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+.sec-head h2 { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700; letter-spacing: -.02em; }
+
+/* Projects */
+.projects { display: grid; gap: 22px; }
+.project {
+  display: grid; grid-template-columns: 1fr 300px; gap: 32px; align-items: center;
+  padding: 28px; border-radius: 18px; border: 1px solid var(--panel-line); background: var(--panel);
+}
+.project > * { min-width: 0; }
+.project h3 { font-size: 1.6rem; font-weight: 700; margin-top: 8px; }
+.project p { color: var(--muted); margin: 12px 0 0; max-width: 62ch; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.tag { font-family: var(--font-mono); font-size: .75rem; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--panel-line); color: var(--fg); }
+.viz { width: 100%; max-width: 100%; height: auto; display: block; }
+.project-link { margin-top: 22px; }
+.project-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.project.wide { grid-template-columns: 1fr; }
+.shot { margin: 0; display: grid; gap: 10px; }
+.shot img { width: 100%; max-width: 100%; height: auto; display: block; border-radius: 12px; border: 1px solid var(--panel-line); box-shadow: 0 24px 50px -28px rgba(0,0,0,.6); }
+.shot figcaption { font-family: var(--font-mono); font-size: .75rem; color: var(--muted); }
+
+/* Tools */
+.tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.tool-group { padding: 24px; border-top: 2px solid var(--accent); background: var(--panel); border-radius: 0 0 14px 14px; }
+.tool-group:nth-child(2) { border-top-color: var(--accent-2); }
+.tool-group:nth-child(3) { border-top-color: var(--warm); }
+.tool-group h3 { font-size: 1.15rem; font-weight: 700; }
+.tool-group ul { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 8px; }
+.tool-group li { display: flex; justify-content: space-between; gap: 12px; }
+.tool-group li span:last-child { font-family: var(--font-mono); font-size: .8rem; color: var(--muted); }
+
+/* Studies */
+.timeline { display: grid; gap: 0; border-left: 1px solid var(--panel-line); margin-left: 6px; }
+.step { position: relative; padding: 0 0 28px 28px; }
+.step::before { content: ""; position: absolute; left: -6px; top: 6px; width: 11px; height: 11px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+.step:first-child::before { background: var(--accent); }
+.step h3 { font-size: 1.2rem; font-weight: 700; }
+.step p { margin: 4px 0 0; color: var(--muted); }
+
+/* Contact */
+.contact {
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px; align-items: center;
+  padding: 36px; border-radius: 22px; border: 1px solid var(--panel-line);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 14%, var(--panel)), color-mix(in srgb, var(--accent-2) 14%, var(--panel)));
+}
+.contact > * { min-width: 0; }
+.contact h2 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); font-weight: 700; }
+.contact p { color: var(--muted); margin: 12px 0 0; }
+.contact-list { display: grid; gap: 12px; }
+.contact-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-radius: 12px; background: var(--bg); border: 1px solid var(--panel-line); flex-wrap: wrap; }
+.contact-row .val { font-family: var(--font-mono); font-size: .9rem; word-break: break-all; user-select: all; }
+.copy { font: 600 .82rem var(--font-body); padding: 6px 12px; border-radius: 999px; border: 1px solid var(--panel-line); background: var(--panel); color: var(--fg); cursor: pointer; }
+.toast { font-size: .82rem; color: var(--accent); min-height: 1.2em; }
+
+footer { padding-block: 40px 56px; color: var(--muted); font-size: .85rem; font-family: var(--font-mono); }
+
+@media (max-width: 860px) {
+  .hero, .project, .contact { grid-template-columns: 1fr; }
+  .tools { grid-template-columns: 1fr; }
+  .project .viz { max-width: 360px; }
+  .top nav { display: none; }
+  .hero { padding-block: 24px 48px; gap: 36px; }
+  .contact { padding: 24px; }
+  .project { padding: 22px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero h1, .role, .intro, .actions { animation: rise .7s ease both; }
+  .role { animation-delay: .08s; } .intro { animation-delay: .16s; } .actions { animation-delay: .24s; }
+  @keyframes rise { from { transform: translateY(10px); } to { transform: none; } }
+}
+
+/* Scroll animations (only when motion is allowed and JS is running) */
+@media (prefers-reduced-motion: no-preference) {
+  .anim .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .8s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0s); }
+  .anim .reveal.is-in { opacity: 1; transform: none; }
+  .anim .reveal .draw { stroke-dasharray: var(--len); stroke-dashoffset: var(--len); transition: stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1) .35s; }
+  .anim .reveal.is-in .draw { stroke-dashoffset: 0; }
+  .anim .reveal .grow { transform: scaleY(0); transform-box: fill-box; transform-origin: 50% 100%; transition: transform .9s cubic-bezier(.2,.7,.2,1); transition-delay: calc(.35s + var(--i, 0) * .09s); }
+  .anim .reveal.is-in .grow { transform: none; }
+  .anim .reveal .pop { opacity: 0; transform: scale(.6); transform-box: fill-box; transform-origin: center; transition: opacity .4s ease, transform .5s cubic-bezier(.2,.9,.3,1.3); transition-delay: calc(.4s + var(--i, 0) * .12s); }
+  .anim .reveal.is-in .pop { opacity: 1; transform: none; }
+  .project, .tool-group { transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+  .project:hover { transform: translateY(-4px); box-shadow: 0 24px 50px -30px rgba(12,26,56,.45); border-color: var(--accent); }
+  .tool-group:hover { transform: translateY(-3px); }
+  .query tbody tr { transition: background .2s ease; }
+  .query tbody tr:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+}
+
+/* ---------- Dashboard section ---------- */
+:root { --good: #15803d; --bad: #c2410c; }
+.sec-sub { color: var(--muted); max-width: 62ch; margin: 4px 0 0; }
+.dash { border: 1px solid var(--panel-line); background: var(--panel); border-radius: 20px; overflow: hidden; }
+.dash-tabs { display: flex; gap: 4px; padding: 10px; border-bottom: 1px solid var(--panel-line); overflow-x: auto; scrollbar-width: thin; }
+.dash-tab { flex: none; font: 600 .9rem var(--font-body); color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+.dash-tab:hover { color: var(--fg); }
+.dash-tab[aria-selected="true"] { color: var(--bg); background: var(--accent); }
+.dash-panel { padding: 28px; display: grid; gap: 24px; }
+.dash-panel > * { min-width: 0; }
+.dash-panel[hidden] { display: none; }
+.dash-title { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 20px; }
+.dash-title h3 { font-size: 1.35rem; font-weight: 700; }
+.insight { margin: 0; padding: 12px 16px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 8%, transparent); border-left: 3px solid var(--accent); color: var(--fg); font-size: .98rem; }
+.insight b { color: var(--accent); }
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.kpi { padding: 16px 18px; border-radius: 14px; border: 1px solid var(--panel-line); background: var(--bg); }
+.kpi .label { letter-spacing: .1em; font-size: .68rem; }
+.kpi .num { font-family: var(--font-display); font-weight: 700; font-size: 2.1rem; line-height: 1.1; margin-top: 6px; font-variant-numeric: tabular-nums; }
+.kpi .sub { font-size: .82rem; color: var(--muted); }
+.dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.dash-grid > * { min-width: 0; }
+.chart-box { border: 1px solid var(--panel-line); border-radius: 14px; padding: 16px 18px; background: var(--bg); }
+.chart-box h4 { margin: 0 0 10px; font: 700 1rem var(--font-display); }
+.chart { width: 100%; height: auto; display: block; overflow: visible; }
+.chart .ax { fill: var(--muted); font: 11px var(--font-mono); }
+.chart .val { fill: var(--fg); font: 600 12px var(--font-mono); }
+.chart .grid { stroke: var(--panel-line); }
+.chart .hit:hover { opacity: .8; }
+.legend { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.legend li { display: flex; align-items: center; gap: 10px; font-size: .95rem; }
+.legend .sw { width: 12px; height: 12px; border-radius: 3px; flex: none; }
+.legend .pct { margin-left: auto; font-family: var(--font-mono); font-size: .85rem; color: var(--muted); }
+.donut-wrap { display: grid; grid-template-columns: 220px 1fr; gap: 28px; align-items: center; }
+.dash-table-wrap { overflow-x: auto; border: 1px solid var(--panel-line); border-radius: 14px; }
+.dash-table { width: 100%; border-collapse: collapse; font-size: .95rem; min-width: 520px; }
+.dash-table th { text-align: left; padding: 0; background: var(--bg); border-bottom: 1px solid var(--panel-line); }
+.dash-table th button { all: unset; cursor: pointer; display: block; padding: 12px 16px; font: 600 .8rem var(--font-mono); color: var(--muted); letter-spacing: .04em; }
+.dash-table th button:hover, .dash-table th button[data-active] { color: var(--fg); }
+.dash-table th button:focus-visible { outline: 2px solid var(--warm); outline-offset: -2px; }
+.dash-table td { padding: 11px 16px; border-bottom: 1px solid var(--panel-line); font-variant-numeric: tabular-nums; }
+.dash-table td.n, .dash-table th.n button { text-align: right; }
+.dash-table tfoot td { font-weight: 700; border-bottom: none; background: var(--bg); }
+.chip { display: inline-block; min-width: 64px; text-align: center; padding: 3px 10px; border-radius: 999px; font: 600 .8rem var(--font-mono); }
+.chip.ok { color: var(--good); background: color-mix(in srgb, var(--good) 14%, transparent); }
+.chip.low { color: var(--bad); background: color-mix(in srgb, var(--bad) 14%, transparent); }
+.sim-controls { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 14px; align-items: stretch; }
+.sim-slider { padding: 16px 18px; border-radius: 14px; border: 1px solid var(--panel-line); background: var(--bg); display: grid; gap: 10px; }
+.sim-slider label { display: flex; justify-content: space-between; font-weight: 700; }
+.sim-slider output { font-family: var(--font-mono); color: var(--accent); }
+.sim-slider input { width: 100%; accent-color: var(--accent); }
+.sim-rows { display: grid; gap: 14px; }
+.sim-row { display: grid; grid-template-columns: 110px 1fr; gap: 14px; align-items: center; }
+.sim-row .dept { font-weight: 700; font-size: .95rem; }
+.sim-bars { display: grid; gap: 5px; }
+.sim-bar { height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; font: 500 .75rem var(--font-mono); white-space: nowrap; transition: width .35s ease; min-width: 0; }
+.sim-bar.now { background: color-mix(in srgb, var(--muted) 28%, transparent); color: var(--fg); }
+.sim-bar.new { background: var(--accent); color: var(--bg); }
+.sim-legend { display: flex; gap: 18px; font-size: .85rem; color: var(--muted); }
+.sim-legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; background: var(--c); }
+.dash-note { font-size: .8rem; color: var(--muted); font-family: var(--font-mono); }
+@media (max-width: 860px) {
+  .kpis, .sim-controls { grid-template-columns: 1fr 1fr; }
+  .sim-controls .sim-slider { grid-column: 1 / -1; }
+  .dash-grid, .donut-wrap { grid-template-columns: 1fr; }
+  .donut-wrap svg { max-width: 220px; margin: 0 auto; }
+  .dash-panel { padding: 18px; }
+  .sim-row { grid-template-columns: 1fr; gap: 6px; }
+}
+
+.points { margin: 14px 0 0; padding-left: 20px; color: var(--muted); display: grid; gap: 6px; max-width: 66ch; }
+.points li::marker { color: var(--accent); }
+.link-note { margin: 12px 0 0; padding-left: 18px; font-size: .88rem; color: var(--muted); display: grid; gap: 4px; }
+.link-note b { color: var(--fg); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">Tamara Parra</div>
+    <nav aria-label="Secciones">
+      <a href="#proyectos">Proyectos</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#herramientas">Herramientas</a>
+      <a href="#formacion">Formación</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div>
+      <h1>Tamara Parra</h1>
+      <div class="role">Analista de Datos</div>
+      <p class="intro">Tomo datos desordenados y los convierto en algo que un equipo puede usar para decidir: un dashboard claro, un reporte que se actualiza solo o una herramienta simple que ahorra horas de trabajo. Vengo de la contabilidad y la administración, así que entiendo cómo funciona un negocio por dentro. Busco mi primer rol como analista de datos, en Santiago o remoto.</p>
+      <div class="actions">
+        <a class="btn primary" href="#proyectos">Ver proyectos</a>
+        <a class="btn" href="https://www.linkedin.com/in/tamara-parra-nalda" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3V9.5Zm6.5 0h3.8v1.6h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4V9.5Z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+
+    <figure class="query" aria-label="Consulta SQL de ejemplo con mis proyectos" style="margin:0">
+      <div class="query-head"><i></i><i></i><i></i><span>portafolio.sql</span></div>
+<pre><span class="kw">SELECT</span> proyecto, area, anio
+<span class="kw">FROM</span>   portafolio
+<span class="kw">WHERE</span>  autora = <span class="str">'Tamara Parra'</span>
+<span class="kw">ORDER BY</span> anio <span class="kw">DESC</span>;</pre>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>proyecto</th><th>area</th><th>anio</th></tr></thead>
+          <tbody>
+            <tr><td>SmartLogic</td><td>Logística</td><td>2026</td></tr>
+            <tr><td>Agendamiento web</td><td>Pymes de belleza</td><td>2026</td></tr>
+            <tr><td>Dashboards</td><td>Gestión</td><td>2026</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="foot">3 filas · Fundación Soymás</div>
+    </figure>
+  </div>
+</div>
+
+<section id="proyectos">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="label">Proyectos</span>
+      <h2>Lo que he construido</h2>
+    </div>
+
+    <div class="projects">
+      <article class="project reveal" style="grid-template-columns:1fr">
+        <div>
+          <span class="label">Logística · Octubre 2026</span>
+          <h3>SmartLogic</h3>
+          <p>Plataforma de gestión de flotas que junta en un solo lugar la operación de una empresa de transporte, que antes estaba repartida entre planillas, llamadas y mensajes de los choferes.</p>
+          <ul class="points">
+            <li>Base de datos en Google Sheets con modelo estrella (5 dimensiones y 5 tablas de hechos) y más de 22.000 registros operacionales.</li>
+            <li>App móvil para conductores en Google Apps Script: registran entregas, combustible con foto de la boleta e incidentes, con acceso por PIN cifrado.</li>
+            <li>Portal de administración con paneles de costos, rendimiento (km/L) y mantenciones, y un sitio web comercial con calculadora de ahorro.</li>
+            <li>Análisis de puntualidad y retraso de entregas, y validación de la calidad de los datos.</li>
+          </ul>
+          <div class="tags"><span class="tag">Modelo estrella</span><span class="tag">Google Sheets</span><span class="tag">Apps Script</span><span class="tag">KPIs operacionales</span></div>
+          <div class="project-links">
+            <a class="btn primary" href="https://smartlogicweb.netlify.app/" target="_blank" rel="noopener">Ver sitio web
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+            <a class="btn" href="https://smartlogic.vercel.app/login?next=/" target="_blank" rel="noopener">Portal de administración
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+            <a class="btn" href="https://script.google.com/macros/s/AKfycbx2hm8Wl8jJPt1Bvg_MrnX1Tt95c6VH0-Zg1Zd2I4xNbo2BOuW3YBZZRMLqCvfNu9GvTg/exec" target="_blank" rel="noopener">App de choferes
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+          </div>
+          <ul class="link-note">
+            <li><b>Portal:</b> entra sin cuenta con «O mira la demo con datos de ejemplo».</li>
+            <li><b>App de choferes:</b> código <b>20001</b> y PIN <b>9090</b> (datos de ejemplo).</li>
+          </ul>
+        </div>
+            </article>
+
+      <article class="project reveal" style="grid-template-columns:1fr">
+        <div>
+          <span class="label">Pymes · Junio 2026</span>
+          <h3>Sistema de agendamiento web para pymes de belleza</h3>
+          <p>App web para que peluquerías, centros de estética y otros negocios de belleza gestionen sus reservas online. Los clientes eligen servicio, día y hora, y el negocio ve su agenda en un solo lugar, sin planillas ni mensajes por WhatsApp.</p>
+          <ul class="points">
+            <li>Flujo completo de agendamiento integrado a Google Workspace.</li>
+            <li>Base de datos transaccional en Google Sheets y lógica automatizada con Google Apps Script.</li>
+            <li>Sitio web para clientes publicado en Netlify.</li>
+          </ul>
+          <div class="tags"><span class="tag">Google Sheets</span><span class="tag">Apps Script</span><span class="tag">Netlify</span></div>
+          <div class="project-links">
+            <a class="btn primary" href="https://beautystudioweb.netlify.app/" target="_blank" rel="noopener">Ver sitio web
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+            <a class="btn" href="https://script.google.com/macros/s/AKfycbxJtr3yulssathCx7uDSSHLqq7_LKgVkOCdbB3jJsJk8hP_C9gLvT2umXNTFjMGJ_JvpA/exec" target="_blank" rel="noopener">Abrir app de reservas
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+          </div>
+        </div>
+            </article>
+
+      <article class="project reveal">
+        <div>
+          <span class="label">Python · 2026</span>
+          <h3>Análisis de acciones tecnológicas</h3>
+          <p>Si alguien hubiera invertido USD 1.000 en Apple, Microsoft y NVIDIA hace un año, ¿cuál habría rendido más y cuál fue más inestable? Lo respondí con Python y datos de Yahoo Finance.</p>
+          <ul class="points">
+            <li>Descarga de precios con yfinance y revisión de calidad de los datos.</li>
+            <li>Simulación de una inversión de USD 1.000: Apple terminó en cerca de USD 1.396, NVIDIA en 1.259 y Microsoft en 969.</li>
+            <li>Rentabilidad, volatilidad anual, caída máxima y correlación entre las tres acciones.</li>
+            <li>Gráficos interactivos con Plotly.</li>
+          </ul>
+          <div class="tags"><span class="tag">Python</span><span class="tag">pandas</span><span class="tag">yfinance</span><span class="tag">Plotly</span></div>
+          <a class="btn primary project-link" href="https://github.com/tamaraparra/analisis-acciones" target="_blank" rel="noopener">Ver código en GitHub
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+        </div>
+        <svg class="viz" viewBox="0 0 300 200" role="img" aria-label="Valor final de USD 1.000 invertidos: Apple 1.396, NVIDIA 1.259, Microsoft 969">
+          <text x="92" y="22" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--muted)">USD 1.000 INVERTIDOS → HOY</text>
+          <line x1="186.1" y1="34" x2="186.1" y2="178" stroke="var(--muted)" stroke-dasharray="3 3"/>
+          <text x="186.1" y="192" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--muted)">1.000</text>
+          <text x="84" y="59" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="11" fill="var(--fg)">Apple</text><rect x="92" y="44" width="131.4" height="22" rx="5" fill="var(--accent)"/><text x="229.4" y="59" font-family="JetBrains Mono, monospace" font-size="11" fill="var(--fg)">$1.396</text><text x="84" y="103" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="11" fill="var(--fg)">NVIDIA</text><rect x="92" y="88" width="118.5" height="22" rx="5" fill="var(--warm)"/><text x="216.5" y="103" font-family="JetBrains Mono, monospace" font-size="11" fill="var(--fg)">$1.259</text><text x="84" y="147" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="11" fill="var(--fg)">Microsoft</text><rect x="92" y="132" width="91.2" height="22" rx="5" fill="var(--accent-2)"/><text x="189.2" y="147" font-family="JetBrains Mono, monospace" font-size="11" fill="var(--fg)">$969</text>
+        </svg>
+      </article>
+
+      <article class="project reveal" style="grid-template-columns:1fr">
+        <div>
+          <span class="label">Gestión · 2025 – 2026</span>
+          <h3>Dashboards de gestión</h3>
+          <p>Dashboards en Power BI y Looker Studio desarrollados durante el programa, para transformar datos en indicadores claros que apoyen la toma de decisiones.</p>
+          <div class="tags"><span class="tag">Power BI</span><span class="tag">Looker Studio</span><span class="tag">SQL</span></div>
+          <a class="btn primary project-link" href="#dashboard">Explorar dashboard
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          </a>
+        </div>
+            </article>
+    </div>
+  </div>
+</section>
+
+
+<section id="dashboard">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="label">Dashboard · Power BI</span>
+      <h2>Asistencia y ausentismo</h2>
+      <p class="sec-sub">Tablero que construí en Power BI para seguir la asistencia, las horas extra y el costo en sueldos de un equipo de 16 personas. Lo recreé aquí para que puedas explorarlo: cambia de pestaña, ordena la tabla y mueve el simulador.</p>
+    </div>
+
+    <div class="dash reveal">
+      <div class="dash-tabs" role="tablist" aria-label="Páginas del dashboard">
+        <button class="dash-tab" role="tab" id="t-resumen" aria-controls="p-resumen" aria-selected="true">Resumen</button>
+        <button class="dash-tab" role="tab" id="t-tendencia" aria-controls="p-tendencia" aria-selected="false" tabindex="-1">Tendencia</button>
+        <button class="dash-tab" role="tab" id="t-area" aria-controls="p-area" aria-selected="false" tabindex="-1">Por área</button>
+        <button class="dash-tab" role="tab" id="t-detalle" aria-controls="p-detalle" aria-selected="false" tabindex="-1">Detalle</button>
+        <button class="dash-tab" role="tab" id="t-simulacion" aria-controls="p-simulacion" aria-selected="false" tabindex="-1">Simulación</button>
+        <button class="dash-tab" role="tab" id="t-relacion" aria-controls="p-relacion" aria-selected="false" tabindex="-1">Sueldo vs. horas extra</button>
+      </div>
+
+      <div class="dash-panel" role="tabpanel" id="p-resumen" aria-labelledby="t-resumen">
+        <div class="dash-title"><h3>Resumen ejecutivo</h3><span class="dash-note">1 jun – 15 ago 2026</span></div>
+        <div class="kpis">
+          <div class="kpi"><div class="label">Plantilla</div><div class="num">16</div><div class="sub">colaboradores</div></div>
+          <div class="kpi"><div class="label">Asistencia general</div><div class="num">79 %</div><div class="sub">del total de registros</div></div>
+          <div class="kpi"><div class="label">Ausencias</div><div class="num">8</div><div class="sub">registradas</div></div>
+          <div class="kpi"><div class="label">Horas extra</div><div class="num">47</div><div class="sub">acumuladas</div></div>
+        </div>
+        <div class="chart-box">
+          <h4>Distribución por estado de asistencia</h4>
+          <div class="donut-wrap"><svg class="chart" id="c-donut" viewBox="0 0 220 220" role="img" aria-label="Gráfico de dona: Presente 79 %, Atraso 8 %, Ausente 8 %, Licencia 5 %"></svg><ul class="legend" id="l-donut"></ul></div>
+        </div>
+        <p class="insight">Casi <b>4 de cada 5 registros</b> son de asistencia. Atrasos y ausencias pesan lo mismo (8 % cada uno), así que bajar los atrasos tiene tanto efecto como bajar las ausencias.</p>
+      </div>
+
+      <div class="dash-panel" role="tabpanel" id="p-tendencia" aria-labelledby="t-tendencia" hidden>
+        <div class="dash-title"><h3>Evolución mensual: horas extra vs. ausencias</h3><span class="dash-note">agosto incluye hasta el día 15</span></div>
+        <div class="chart-box"><svg class="chart" id="c-trend" viewBox="0 0 640 300" role="img" aria-label="Horas extra: junio 23, julio 14, agosto 10. Ausencias: junio 4, julio 2, agosto 2."></svg>
+          <div class="sim-legend"><span style="--c: var(--accent)">Horas extra (eje izq.)</span><span style="--c: var(--accent-2)">Ausencias (eje der.)</span></div></div>
+        <p class="insight">Las horas extra bajaron de <b>23 en junio a 10 en agosto</b>, mientras las ausencias se estabilizaron en 2 por mes. Ojo: agosto tiene medio mes de datos.</p>
+      </div>
+
+      <div class="dash-panel" role="tabpanel" id="p-area" aria-labelledby="t-area" hidden>
+        <div class="dash-title"><h3>Asistencia y horas extra por área</h3></div>
+        <div class="dash-grid">
+          <div class="chart-box"><h4>Tasa de asistencia por departamento</h4><svg class="chart" id="c-dept" viewBox="0 0 420 280" role="img" aria-label="Asistencia por departamento: RR.HH. 90 %, Ventas 85 %, Finanzas 77 %, TI 75 %, Operaciones 65 %"></svg></div>
+          <div class="chart-box"><h4>Horas extra por cargo</h4><svg class="chart" id="c-cargo" viewBox="0 0 420 320" role="img" aria-label="Horas extra por cargo"></svg></div>
+        </div>
+        <p class="insight"><b>Operaciones</b> tiene la asistencia más baja, unos 25 puntos bajo RR.HH. Las horas extra se concentran en <b>Jefa de Ventas y Ejecutivo</b> (17 de 47).</p>
+      </div>
+
+      <div class="dash-panel" role="tabpanel" id="p-detalle" aria-labelledby="t-detalle" hidden>
+        <div class="dash-title"><h3>Detalle por colaborador</h3><span class="dash-note">10 de 16 colaboradores · haz clic en un encabezado para ordenar</span></div>
+        <div class="dash-table-wrap">
+          <table class="dash-table">
+            <thead><tr>
+              <th><button type="button" data-key="nombre">Nombre</button></th>
+              <th class="n"><button type="button" data-key="sueldo" data-active>Sueldo base ↓</button></th>
+              <th class="n"><button type="button" data-key="he">Horas extra</button></th>
+              <th class="n"><button type="button" data-key="asis">% asistencia</button></th>
+            </tr></thead>
+            <tbody id="tb-detalle"></tbody>
+            <tfoot><tr><td>Total equipo (16)</td><td class="n">$15.400.000</td><td class="n">47</td><td class="n">79 %</td></tr></tfoot>
+          </table>
+        </div>
+        <p class="insight"><b>5 de estos 10 colaboradores</b> están bajo 80 % de asistencia, y no son los que más horas extra hacen: el ausentismo no parece venir de sobrecarga.</p>
+      </div>
+
+      <div class="dash-panel" role="tabpanel" id="p-simulacion" aria-labelledby="t-simulacion" hidden>
+        <div class="dash-title"><h3>Simulador de impacto en sueldos</h3><span class="dash-note">escenario "qué pasa si"</span></div>
+        <div class="sim-controls">
+          <div class="sim-slider">
+            <label for="sim-pct">Aumento salarial proyectado <output id="sim-out">5 %</output></label>
+            <input type="range" id="sim-pct" min="0" max="20" step="0.5" value="5">
+          </div>
+          <div class="kpi"><div class="label">Presupuesto actual</div><div class="num">$15,4 mill.</div><div class="sub">sueldos base al mes</div></div>
+          <div class="kpi"><div class="label">Presupuesto simulado</div><div class="num" id="sim-total">$16,17 mill.</div><div class="sub" id="sim-diff">+$770.000 al mes</div></div>
+        </div>
+        <div class="chart-box">
+          <h4>Sueldo actual vs. simulado por departamento</h4>
+          <div class="sim-rows" id="sim-rows"></div>
+          <div class="sim-legend" style="margin-top:14px"><span style="--c: color-mix(in srgb, var(--muted) 28%, transparent)">Actual</span><span style="--c: var(--accent)">Simulado</span></div>
+        </div>
+      </div>
+
+      <div class="dash-panel" role="tabpanel" id="p-relacion" aria-labelledby="t-relacion" hidden>
+        <div class="dash-title"><h3>Relación entre sueldo base y horas extra</h3><span class="dash-note">pasa el mouse sobre un punto</span></div>
+        <div class="chart-box"><svg class="chart" id="c-scatter" viewBox="0 0 640 320" role="img" aria-label="Gráfico de dispersión entre sueldo base y horas extra por colaborador"></svg></div>
+        <p class="insight">No hay una relación clara: hay personas con sueldos bajos y muchas horas extra, y quien hace más horas extra (9) tiene uno de los sueldos más altos. Sirve para revisar caso a caso, no para una regla general.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="herramientas">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="label">Herramientas</span>
+      <h2>Con qué trabajo</h2>
+    </div>
+    <div class="tools">
+      <div class="tool-group reveal">
+        <h3>Análisis</h3>
+        <ul>
+          <li><span>SQL</span><span>básico–intermedio</span></li>
+          <li><span>Python</span><span>intermedio</span></li>
+          <li><span>Excel</span><span>intermedio–avanzado</span></li>
+          <li><span>Tablas dinámicas</span><span>Excel</span></li>
+        </ul>
+      </div>
+      <div class="tool-group reveal">
+        <h3>Visualización</h3>
+        <ul>
+          <li><span>Power BI</span><span>intermedio</span></li>
+          <li><span>Looker Studio</span><span>intermedio</span></li>
+          <li><span>Dashboards</span><span>interactivos</span></li>
+          <li><span>Storytelling</span><span>con datos</span></li>
+        </ul>
+      </div>
+      <div class="tool-group reveal">
+        <h3>Automatización, web e IA</h3>
+        <ul>
+          <li><span>Google Apps Script</span><span>automatización</span></li>
+          <li><span>Google Sheets</span><span>bases de datos</span></li>
+          <li><span>Apps y páginas web</span><span>desarrollo</span></li>
+          <li><span>Prompt engineering</span><span>IA</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="formacion">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="label">Formación</span>
+      <h2>Dónde aprendí</h2>
+    </div>
+    <div class="timeline">
+      <div class="step reveal">
+        <span class="label">2025 – 2026</span>
+        <h3>Programa de Formación en Análisis de Datos</h3>
+        <p>Fundación Soymás</p>
+      </div>
+      <div class="step reveal">
+        <span class="label">2017 · 2 semestres</span>
+        <h3>Estudios en Contabilidad General</h3>
+        <p>Instituto Profesional AIEP</p>
+      </div>
+      <div class="step reveal">
+        <span class="label">2014 · Técnico nivel medio</span>
+        <h3>Administración de empresas</h3>
+        <p>Liceo PP San Ramón, La Pintana</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="wrap">
+    <div class="contact reveal">
+      <div>
+        <span class="label">Contacto</span>
+        <h2 style="margin-top:10px">Conversemos</h2>
+        <p>Si tu equipo necesita a alguien que ordene, analice y automatice datos, escríbeme.</p>
+      </div>
+      <div class="contact-list">
+        <div class="contact-row">
+          <span class="val" id="mail">Tamaraparra.n@gmail.com</span>
+          <button class="copy" id="copy-mail" type="button">Copiar</button>
+        </div>
+        <div class="contact-row">
+          <span class="val">linkedin.com/in/tamara-parra-nalda</span>
+          <a class="copy" href="https://www.linkedin.com/in/tamara-parra-nalda" target="_blank" rel="noopener" style="text-decoration:none">Abrir</a>
+        </div>
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Tamara Parra · Analista de Datos · Santiago, Chile</div>
+</footer>
+
+<script>
+  (function () {
+    var btn = document.getElementById('copy-mail');
+    var toast = document.getElementById('toast');
+    var mail = document.getElementById('mail');
+    btn.addEventListener('click', function () {
+      var text = mail.textContent.trim();
+      function fallback() {
+        var r = document.createRange(); r.selectNodeContents(mail);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        toast.textContent = 'Correo seleccionado. Cópialo con Ctrl+C o Cmd+C.';
+      }
+      try {
+        navigator.clipboard.writeText(text).then(function () {
+          toast.textContent = 'Correo copiado.';
+        }, fallback);
+      } catch (e) { fallback(); }
+    });
+  })();
+</script>
+
+
+<script>
+  (function () {
+    var motionOk = window.matchMedia && window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+    if (!motionOk || !('IntersectionObserver' in window)) return;
+    document.documentElement.classList.add('anim');
+
+    // Stagger siblings in grids
+    document.querySelectorAll('.tools .reveal, .timeline .reveal, .projects .reveal').forEach(function (el, i, all) {
+      var idx = Array.prototype.indexOf.call(el.parentNode.children, el);
+      el.style.setProperty('--d', (idx * 0.12) + 's');
+    });
+
+    // Lines draw themselves
+    document.querySelectorAll('.viz polyline, .viz line').forEach(function (l) {
+      try { var len = Math.ceil(l.getTotalLength()); l.style.setProperty('--len', len); l.classList.add('draw'); } catch (e) {}
+    });
+    // Bars grow from the baseline
+    document.querySelectorAll('.viz[data-anim="bars"] rect').forEach(function (r, i) {
+      if (i === 0) return; // background panel
+      r.classList.add('grow'); r.style.setProperty('--i', i);
+    });
+    // Booked slots pop in
+    document.querySelectorAll('.viz[data-anim="slots"] .booked rect, .viz[data-anim="slots"] .booked-new').forEach(function (r, i) {
+      r.classList.add('pop'); r.style.setProperty('--i', i);
+    });
+    // Modules appear around the panel
+    document.querySelectorAll('.viz[data-anim="modules"] .modules rect, .viz[data-anim="modules"] .modules text').forEach(function (r, i) {
+      r.classList.add('pop'); r.style.setProperty('--i', Math.floor(i / 1) % 6);
+    });
+
+    var items = document.querySelectorAll('.reveal');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    items.forEach(function (el) { io.observe(el); });
+
+    // Safety net: never leave content hidden
+    setTimeout(function () { items.forEach(function (el) { el.classList.add('is-in'); }); }, 6000);
+  })();
+</script>
+
+<script>
+(function () {
+  var NS = 'http://www.w3.org/2000/svg';
+  function clp(n) { return '$' + Math.round(n).toLocaleString('es-CL'); }
+  function mill(n) { return '$' + (n / 1e6).toLocaleString('es-CL', { maximumFractionDigits: 2 }) + ' mill.'; }
+  function svg(el, html) { el.innerHTML = html; }
+
+  /* ---- Tabs ---- */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.dash-tab'));
+  function show(tab) {
+    tabs.forEach(function (t) {
+      var on = t === tab;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { show(t); });
+    t.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      var n = tabs[(i + d + tabs.length) % tabs.length]; show(n); n.focus(); e.preventDefault();
+    });
+  });
+
+  /* ---- Donut ---- */
+  var estados = [
+    { k: 'Presente', v: 79, c: 'var(--accent)' },
+    { k: 'Atraso', v: 8, c: 'var(--accent-2)' },
+    { k: 'Ausente', v: 8, c: 'var(--warm)' },
+    { k: 'Licencia', v: 5, c: 'var(--muted)' }
+  ];
+  (function () {
+    var r = 80, C = 2 * Math.PI * r, off = 0, gap = 3, h = '';
+    h += '<circle cx="110" cy="110" r="' + r + '" fill="none" stroke="var(--panel-line)" stroke-width="24"/>';
+    estados.forEach(function (s) {
+      var len = C * s.v / 100;
+      h += '<circle class="hit" cx="110" cy="110" r="' + r + '" fill="none" stroke="' + s.c + '" stroke-width="24" stroke-dasharray="' + Math.max(len - gap, 1) + ' ' + C + '" stroke-dashoffset="' + (-off) + '" transform="rotate(-90 110 110)"><title>' + s.k + ': ' + s.v + ' %</title></circle>';
+      off += len;
+    });
+    h += '<text x="110" y="108" text-anchor="middle" style="font:700 34px var(--font-display);fill:var(--fg)">79 %</text>';
+    h += '<text x="110" y="132" text-anchor="middle" class="ax">asistencia</text>';
+    svg(document.getElementById('c-donut'), h);
+    document.getElementById('l-donut').innerHTML = estados.map(function (s) {
+      return '<li><span class="sw" style="background:' + s.c + '"></span>' + s.k + '<span class="pct">' + s.v + ' %</span></li>';
+    }).join('');
+  })();
+
+  /* ---- Trend combo ---- */
+  (function () {
+    var m = [{ k: 'Junio', he: 23, au: 4 }, { k: 'Julio', he: 14, au: 2 }, { k: 'Agosto*', he: 10, au: 2 }];
+    var x0 = 60, x1 = 580, y0 = 250, y1 = 30, h = '';
+    function yL(v) { return y0 - (v / 25) * (y0 - y1); }
+    function yR(v) { return y0 - (v / 10) * (y0 - y1); }
+    [0, 5, 10, 15, 20, 25].forEach(function (t) {
+      h += '<line class="grid" x1="' + x0 + '" x2="' + x1 + '" y1="' + yL(t) + '" y2="' + yL(t) + '"/>';
+      h += '<text class="ax" x="' + (x0 - 10) + '" y="' + (yL(t) + 4) + '" text-anchor="end">' + t + '</text>';
+    });
+    [0, 2, 4, 6, 8, 10].forEach(function (t) {
+      h += '<text class="ax" x="' + (x1 + 10) + '" y="' + (yR(t) + 4) + '">' + t + '</text>';
+    });
+    var step = (x1 - x0) / m.length, pts = [];
+    m.forEach(function (d, i) {
+      var cx = x0 + step * (i + .5), bw = 78;
+      h += '<rect class="hit" x="' + (cx - bw / 2) + '" y="' + yL(d.he) + '" width="' + bw + '" height="' + (y0 - yL(d.he)) + '" rx="6" fill="var(--accent)"><title>' + d.k + ': ' + d.he + ' horas extra</title></rect>';
+      h += '<text class="val" x="' + cx + '" y="' + (yL(d.he) - 8) + '" text-anchor="middle">' + d.he + '</text>';
+      h += '<text class="ax" x="' + cx + '" y="' + (y0 + 22) + '" text-anchor="middle">' + d.k + '</text>';
+      pts.push([cx, yR(d.au), d]);
+    });
+    h += '<polyline points="' + pts.map(function (p) { return p[0] + ',' + p[1]; }).join(' ') + '" fill="none" stroke="var(--accent-2)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>';
+    pts.forEach(function (p) {
+      h += '<circle class="hit" cx="' + p[0] + '" cy="' + p[1] + '" r="6" fill="var(--bg)" stroke="var(--accent-2)" stroke-width="3"><title>' + p[2].k + ': ' + p[2].au + ' ausencias</title></circle>';
+      h += '<text class="val" x="' + p[0] + '" text-anchor="middle" y="' + (p[1] - 14) + '" style="fill:var(--accent-2)">' + p[2].au + '</text>';
+    });
+    svg(document.getElementById('c-trend'), h);
+  })();
+
+  /* ---- Departments ---- */
+  (function () {
+    var d = [['RR.HH.', 90], ['Ventas', 85], ['Finanzas', 77], ['TI', 75], ['Operaciones', 65]];
+    var x0 = 44, x1 = 410, y0 = 240, y1 = 20, h = '';
+    function y(v) { return y0 - v / 100 * (y0 - y1); }
+    [0, 20, 40, 60, 80, 100].forEach(function (t) {
+      h += '<line class="grid" x1="' + x0 + '" x2="' + x1 + '" y1="' + y(t) + '" y2="' + y(t) + '"/>';
+      h += '<text class="ax" x="' + (x0 - 8) + '" y="' + (y(t) + 4) + '" text-anchor="end">' + t + '%</text>';
+    });
+    var step = (x1 - x0) / d.length;
+    d.forEach(function (r, i) {
+      var cx = x0 + step * (i + .5), bw = 40, low = r[1] < 70;
+      h += '<rect class="hit" x="' + (cx - bw / 2) + '" y="' + y(r[1]) + '" width="' + bw + '" height="' + (y0 - y(r[1])) + '" rx="5" fill="' + (low ? 'var(--warm)' : 'var(--accent)') + '"><title>' + r[0] + ': ' + r[1] + ' %</title></rect>';
+      h += '<text class="val" x="' + cx + '" y="' + (y(r[1]) - 7) + '" text-anchor="middle">' + r[1] + '%</text>';
+      h += '<text class="ax" x="' + cx + '" y="' + (y0 + 20) + '" text-anchor="middle">' + r[0] + '</text>';
+    });
+    svg(document.getElementById('c-dept'), h);
+  })();
+
+  /* ---- Cargo ---- */
+  (function () {
+    var d = [['Jefa Ventas', 9], ['Ejecutivo', 8], ['Desarrollador', 7], ['Operario', 7], ['Soporte', 7], ['Analista', 5], ['Generalista', 2], ['Supervisora', 2], ['Contador', 0], ['Jefa RR.HH.', 0], ['Reclutador', 0]];
+    var x0 = 104, x1 = 390, top = 6, rowH = 27, h = '';
+    function x(v) { return x0 + v / 10 * (x1 - x0); }
+    [0, 2, 4, 6, 8, 10].forEach(function (t) {
+      h += '<line class="grid" x1="' + x(t) + '" x2="' + x(t) + '" y1="' + top + '" y2="' + (top + rowH * d.length) + '"/>';
+      h += '<text class="ax" x="' + x(t) + '" y="' + (top + rowH * d.length + 16) + '" text-anchor="middle">' + t + '</text>';
+    });
+    d.forEach(function (r, i) {
+      var cy = top + rowH * i + rowH / 2;
+      h += '<text class="ax" x="' + (x0 - 8) + '" y="' + (cy + 4) + '" text-anchor="end">' + r[0] + '</text>';
+      if (r[1] > 0) h += '<rect class="hit" x="' + x0 + '" y="' + (cy - 8) + '" width="' + (x(r[1]) - x0) + '" height="16" rx="4" fill="var(--accent)"><title>' + r[0] + ': ' + r[1] + ' horas extra</title></rect>';
+      h += '<text class="val" x="' + (x(r[1]) + 6) + '" y="' + (cy + 4) + '">' + r[1] + '</text>';
+    });
+    svg(document.getElementById('c-cargo'), h);
+  })();
+
+  /* ---- Detail table ---- */
+  (function () {
+    var rows = [
+      ['Claudia Vega', 1500000, 0, 100], ['Sofía Torres', 1400000, 9, 86], ['Javier Espinoza', 1250000, 3, 100],
+      ['Juan Pérez', 1200000, 4, 57], ['Laura Castillo', 1100000, 2, 57], ['Diego Morales', 1000000, 0, 86],
+      ['Carlos Ruiz', 950000, 2, 71], ['Valentina Díaz', 900000, 3, 67], ['María López', 850000, 2, 71], ['Ana Gómez', 800000, 5, 100]
+    ].map(function (r) { return { nombre: r[0], sueldo: r[1], he: r[2], asis: r[3] }; });
+    var tb = document.getElementById('tb-detalle'), key = 'sueldo', dir = -1;
+    var btns = document.querySelectorAll('.dash-table th button');
+    var names = { nombre: 'Nombre', sueldo: 'Sueldo base', he: 'Horas extra', asis: '% asistencia' };
+    function render() {
+      rows.sort(function (a, b) { var A = a[key], B = b[key]; return (typeof A === 'string' ? A.localeCompare(B, 'es') : A - B) * dir; });
+      tb.innerHTML = rows.map(function (r) {
+        return '<tr><td>' + r.nombre + '</td><td class="n">' + clp(r.sueldo) + '</td><td class="n">' + r.he + '</td><td class="n"><span class="chip ' + (r.asis >= 80 ? 'ok' : 'low') + '">' + r.asis + ' %</span></td></tr>';
+      }).join('');
+      btns.forEach(function (b) {
+        var k = b.getAttribute('data-key');
+        if (k === key) { b.setAttribute('data-active', ''); b.textContent = names[k] + (dir < 0 ? ' ↓' : ' ↑'); }
+        else { b.removeAttribute('data-active'); b.textContent = names[k]; }
+      });
+    }
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var k = b.getAttribute('data-key');
+        if (k === key) dir = -dir; else { key = k; dir = k === 'nombre' ? 1 : -1; }
+        render();
+      });
+    });
+    render();
+  })();
+
+  /* ---- Simulator ---- */
+  (function () {
+    var d = [['Ventas', 4450000], ['TI', 3200000], ['RR.HH.', 3150000], ['Operaciones', 2700000], ['Finanzas', 1900000]];
+    var total = 15400000, max = 4450000 * 1.2;
+    var input = document.getElementById('sim-pct'), out = document.getElementById('sim-out');
+    var wrap = document.getElementById('sim-rows');
+    wrap.innerHTML = d.map(function (r, i) {
+      return '<div class="sim-row"><div class="dept">' + r[0] + '</div><div class="sim-bars">' +
+        '<div class="sim-bar now" style="width:' + (r[1] / max * 100) + '%">' + clp(r[1]) + '</div>' +
+        '<div class="sim-bar new" id="sim-b' + i + '"></div></div></div>';
+    }).join('');
+    function update() {
+      var p = parseFloat(input.value) / 100;
+      out.textContent = input.value.replace('.', ',') + ' %';
+      document.getElementById('sim-total').textContent = mill(total * (1 + p));
+      document.getElementById('sim-diff').textContent = '+' + clp(total * p) + ' al mes';
+      d.forEach(function (r, i) {
+        var b = document.getElementById('sim-b' + i), v = r[1] * (1 + p);
+        b.style.width = (v / max * 100) + '%'; b.textContent = clp(v);
+      });
+    }
+    input.addEventListener('input', update);
+    update();
+  })();
+
+  /* ---- Scatter ---- */
+  (function () {
+    var p = [[650000, 7], [750000, 7], [800000, 5], [800000, 2], [800000, 1], [800000, 0], [850000, 2], [900000, 3], [950000, 2], [1000000, 0], [1100000, 2], [1200000, 4], [1250000, 3], [1400000, 9], [1500000, 0]];
+    var x0 = 50, x1 = 620, y0 = 270, y1 = 20, h = '';
+    function x(v) { return x0 + (v - 600000) / 950000 * (x1 - x0); }
+    function y(v) { return y0 - v / 10 * (y0 - y1); }
+    [0, 2, 4, 6, 8, 10].forEach(function (t) {
+      h += '<line class="grid" x1="' + x0 + '" x2="' + x1 + '" y1="' + y(t) + '" y2="' + y(t) + '"/>';
+      h += '<text class="ax" x="' + (x0 - 10) + '" y="' + (y(t) + 4) + '" text-anchor="end">' + t + '</text>';
+    });
+    [600000, 800000, 1000000, 1200000, 1400000].forEach(function (t) {
+      h += '<text class="ax" x="' + x(t) + '" y="' + (y0 + 22) + '" text-anchor="middle">' + mill(t).replace(' mill.', 'M') + '</text>';
+    });
+    h += '<text class="ax" x="' + ((x0 + x1) / 2) + '" y="' + (y0 + 44) + '" text-anchor="middle">Sueldo base</text>';
+    h += '<text class="ax" x="14" y="' + ((y0 + y1) / 2) + '" text-anchor="middle" transform="rotate(-90 14 ' + ((y0 + y1) / 2) + ')">Horas extra</text>';
+    p.forEach(function (q) {
+      h += '<circle class="hit" cx="' + x(q[0]) + '" cy="' + y(q[1]) + '" r="7" fill="var(--accent)" fill-opacity=".75" stroke="var(--bg)" stroke-width="2"><title>Sueldo ' + clp(q[0]) + ' · ' + q[1] + ' horas extra</title></circle>';
+    });
+    svg(document.getElementById('c-scatter'), h);
+  })();
+})();
+</script>
+</body>
+</html>
